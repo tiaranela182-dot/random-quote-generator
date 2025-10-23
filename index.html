@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Random Quote Generator</title>
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; display:flex; align-items:center; justify-content:center; min-height:100vh; margin:0; background: linear-gradient(135deg,#f6f9ff,#e9f7f1); }
+    .card { width:min(720px,92%); background:#fff; padding:28px; border-radius:14px; box-shadow:0 10px 30px rgba(10,20,40,0.06); }
+    h1 { margin:0 0 8px; font-size:1.4rem; }
+    blockquote { margin:18px 0; font-size:1.1rem; line-height:1.5; color:#222; }
+    .author { text-align:right; font-weight:600; color:#555; }
+    .controls { display:flex; gap:10px; margin-top:16px; }
+    button { padding:10px 14px; border-radius:8px; border:0; cursor:pointer; font-weight:600; }
+    .btn-primary { background:#3b82f6; color:#fff; }
+    .btn-secondary { background:#eef2ff; color:#1f2937; }
+    .small { font-size:0.85rem; color:#666; margin-top:10px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Random Quote Generator</h1>
+    <p class="small">Klik tombol "New Quote" untuk menampilkan kutipan acak. Semua berjalan di browser — tidak ada data yang dikirimkan.</p>
+    <blockquote id="quote">"Loading..."</blockquote>
+    <div class="author" id="author">—</div>
+
+    <div class="controls">
+      <button class="btn-primary" id="newBtn">New Quote</button>
+      <button class="btn-secondary" id="tweetBtn">Share (Twitter)</button>
+    </div>
+
+    <p class="small">Projek sederhana untuk belajar HTML/CSS/JS dan upload ke GitHub Pages.</p>
+  </div>
+
+  <script>
+    // daftar quotes sederhana (bisa kamu tambah sendiri)
+    const quotes = [
+      { q: "Jangan menunggu kesempatan—ciptakanlah.", a: "Anonim" },
+      { q: "Belajar sedikit setiap hari lebih baik daripada menunggu seminggu untuk mulai.", a: "Tiara (inspirasi)" },
+      { q: "Kesalahan adalah guru terbaik.", a: "Pepatah" },
+      { q: "Kerja keras mengalahkan bakat saat bakat tidak bekerja keras.", a: "Tim Notable" },
+      { q: "Mulailah dari hal kecil dan konsisten.", a: "Motivator" },
+      { q: "Satu langkah kecil hari ini adalah kemajuan besar nanti.", a: "Bijak" }
+    ];
+
+    const quoteEl = document.getElementById('quote');
+    const authorEl = document.getElementById('author');
+    const newBtn = document.getElementById('newBtn');
+    const tweetBtn = document.getElementById('tweetBtn');
+
+    function showRandom() {
+      const i = Math.floor(Math.random() * quotes.length);
+      const item = quotes[i];
+      quoteEl.textContent = `"${item.q}"`;
+      authorEl.textContent = `— ${item.a}`;
+    }
+
+    newBtn.addEventListener('click', showRandom);
+
+    tweetBtn.addEventListener('click', () => {
+      const text = `${quoteEl.textContent} ${authorEl.textContent}`;
+      const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    });
+
+    // tampilkan satu kutipan saat halaman dimuat
+    showRandom();
+  </script>
+</body>
+</html>
